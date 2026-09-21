@@ -1,0 +1,2 @@
+game_id,game_date,league,away_team,home_team,draftkings_open_home_ml,draftkings_close_home_ml,market_implied_home_win_prob,model_score,home_won,home_covered,game_final,home_availability_edge,home_rest_edge,home_travel_edge,home_net_rating_edge,day_of_week,source_url,recorded_at_utc
+example-001,2026-09-21,NBA,Example Away,Example Home,-125,-135,0.574,0,1,1,yes,0,0,0,0,Sunday,https://example.com,2026-09-21T12:00:00Z

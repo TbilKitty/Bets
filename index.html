@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Daily NBA game research tracker" />
+    <title>Game Edge Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">NBA research dashboard</p>
+        <h1>Game Edge Tracker</h1>
+        <p class="subtitle">Track information that may matter, then test it against the closing market.</p>
+        <p><a class="analysis-link" href="analysis.html">Open post-game accuracy review →</a></p>
+      </header>
+
+      <section class="notice" aria-label="Method note">
+        The market probability is the starting point. The score is only a transparent research flag, not a betting recommendation.
+      </section>
+
+      <section class="metrics" aria-label="Slate summary">
+        <article><span>Games loaded</span><strong id="game-count">—</strong></article>
+        <article><span>Watch signals</span><strong id="watch-count">—</strong></article>
+        <article><span>Confirmed absences</span><strong id="absence-count">—</strong></article>
+      </section>
+
+      <section class="weights-section">
+        <div>
+          <h2>Research weights</h2>
+          <p>Adjust these to test your assumptions. They are stored in this browser only.</p>
+        </div>
+        <div class="weight-controls">
+          <label>Availability <input id="availability-weight" type="number" min="0" max="1" step="0.05" value="0.40" /></label>
+          <label>Rest <input id="rest-weight" type="number" min="0" max="1" step="0.05" value="0.20" /></label>
+          <label>Travel <input id="travel-weight" type="number" min="0" max="1" step="0.05" value="0.15" /></label>
+          <label>Net rating <input id="rating-weight" type="number" min="0" max="1" step="0.05" value="0.25" /></label>
+          <button id="recalculate" type="button">Recalculate</button>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <h2>Daily slate</h2>
+          <p id="data-status">Loading data…</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Game</th><th>Start (ET)</th><th>DK home win %</th><th>Tracker home win %</th><th>Availability</th><th>Rest</th><th>Travel</th><th>Net rating</th><th>Research flag</th><th>Source status</th>
+              </tr>
+            </thead>
+            <tbody id="slate-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="method">
+        <h2>How to read the factors</h2>
+        <ul>
+          <li><strong>Availability:</strong> enter only the estimated impact of confirmed or well-sourced availability news.</li>
+          <li><strong>Rest:</strong> favor the team with more rest; back-to-backs and 3-in-4-night stretches should be recorded separately in the source data.</li>
+          <li><strong>Travel:</strong> capture distance, time zones, and direction. Do not assume distance alone creates an edge.</li>
+          <li><strong>Net rating:</strong> a compact prior-strength input. Update it from a consistent statistics source.</li>
+        </ul>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
