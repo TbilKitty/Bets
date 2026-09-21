@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -27,12 +28,19 @@ def odds_rows() -> list[dict]:
     key = os.environ.get("ODDS_API_KEY")
     if not key:
         return []
-    query = urlencode({"apiKey": key, "regions": "us", "markets": "h2h", "oddsFormat": "american"})
+    query = urlencode({"apiKey": key, "regions": "us", "bookmakers": "draftkings", "markets": "h2h", "oddsFormat": "american"})
     events = fetch_json(f"https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?{query}")
     rows = []
-    today = dt.date.today().isoformat()
+    eastern = ZoneInfo("America/New_York")
+    today = dt.datetime.now(eastern).date()
     for event in events:
         commence = event.get("commence_time", "")
+        try:
+            start_et = dt.datetime.fromisoformat(commence.replace("Z", "+00:00")).astimezone(eastern)
+        except ValueError:
+            continue
+        if start_et.date() != today:
+            continue
         home_probability = ""
         for bookmaker in event.get("bookmakers", []):
             if bookmaker.get("key") != "draftkings":
@@ -48,8 +56,8 @@ def odds_rows() -> list[dict]:
                 home_probability = f"{raw_home / (raw_home + raw_away):.4f}"
             break
         rows.append({
-            "game_date": commence[:10] or today,
-            "start_time_et": commence,
+            "game_date": start_et.date().isoformat(),
+            "start_time_et": start_et.strftime("%-I:%M %p"),
             "away_team": event.get("away_team", ""),
             "home_team": event.get("home_team", ""),
             "market_implied_home_win_prob": "",
