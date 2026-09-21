@@ -1,1 +1,2 @@
 retrieved_at_utc,source_type,league,team_or_player,headline_or_status,url,confidence,used_in_daily_file
+2026-09-21T14:24:47.974798+00:00,API,NBA,,No update: configure ODDS_API_KEY to load an NBA slate.,https://the-odds-api.com/,API source,no
