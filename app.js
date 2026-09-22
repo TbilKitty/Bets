@@ -28,6 +28,7 @@ function score(game) {
 }
 
 function trackerProbability(game) {
+  if (game.market_implied_home_win_prob === "") return null;
   return Math.max(0.02, Math.min(0.98, number(game.market_implied_home_win_prob) + score(game) / 100));
 }
 
@@ -36,14 +37,16 @@ function formatFactor(value) { return `${number(value) >= 0 ? "+" : ""}${number(
 function render(games) {
   const rows = games.map(game => {
     const signal = score(game);
+    const marketAvailable = game.market_implied_home_win_prob !== "";
+    const tracker = trackerProbability(game);
     const watch = Math.abs(signal) >= 2.5;
     const availability = game.availability_note || "No material item logged";
     const sourceClass = game.news_confirmed === "yes" ? "confirm" : "unconfirmed";
     return `<tr>
       <td><strong>${game.away_team}</strong> @ <strong>${game.home_team}</strong><br><small>${game.game_date}</small></td>
       <td>${game.start_time_et}</td>
-      <td>${(number(game.market_implied_home_win_prob) * 100).toFixed(0)}%</td>
-      <td>${(trackerProbability(game) * 100).toFixed(0)}%</td>
+      <td>${marketAvailable ? `${(number(game.market_implied_home_win_prob) * 100).toFixed(0)}%` : "—"}</td>
+      <td>${tracker === null ? "—" : `${(tracker * 100).toFixed(0)}%`}</td>
       <td>${availability}</td>
       <td>${formatFactor(game.rest_edge)}</td>
       <td>${formatFactor(game.travel_edge)}</td>
