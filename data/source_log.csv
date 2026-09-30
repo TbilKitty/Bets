@@ -11,3 +11,4 @@ retrieved_at_utc,source_type,league,team_or_player,headline_or_status,url,confid
 2026-09-26T14:27:35.950866+00:00,API,NFL,,No update: configure ODDS_API_KEY to load the NFL slate.,https://the-odds-api.com/,API source,no
 2026-09-27T14:27:20.422627+00:00,API,NFL,,Loaded 14 NFL events; enter injury and factor values before use.,https://the-odds-api.com/,API source,no
 2026-09-28T14:33:25.465217+00:00,API,NFL,,Loaded 1 NFL events; enter injury and factor values before use.,https://the-odds-api.com/,API source,no
+2026-09-30T14:35:13.780706+00:00,API,NFL,,No update: configure ODDS_API_KEY to load the NFL slate.,https://the-odds-api.com/,API source,no
